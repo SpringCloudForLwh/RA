@@ -1,0 +1,77 @@
+#server:
+#  port: 8888
+#
+#eureka:
+#  client:
+#    fetch-registry: false
+#    register-with-eureka: false
+#    service-url:
+#      defaultZone: http://localhost:8888/eureka/
+
+spring:
+  application:
+    name: EUREKA_SERVER
+
+---
+#  节点1：
+eureka:
+  client:
+    # 是否注册到其他server
+    register-with-eureka: true
+    # 是否拉取服务注册列表
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://lwh2.com:8888/eureka/,http://lwh3.com:8988/eureka/
+  instance:
+    hostname: lwh1.com
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+server:
+  port: 8788
+spring:
+  profiles: s1
+---
+ # 节点2：
+eureka:
+  client:
+    # 是否注册到其他server
+    register-with-eureka: true
+    # 是否拉取服务注册列表
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://lwh3.com:8988/eureka/,http://lwh1.com:8788/eureka/
+  instance:
+    hostname: lwh2.com
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+server:
+  port: 8888
+spring:
+  profiles: s2
+
+
+---
+ # 节点3：
+eureka:
+  client:
+    # 是否注册到其他server
+    register-with-eureka: true
+    # 是否拉取服务注册列表
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://lwh1.com:8788/eureka/,http://lwh2.com:8888/eureka/
+  instance:
+    hostname: lwh3.com
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+server:
+  port: 8988
+spring:
+  profiles: s3
+

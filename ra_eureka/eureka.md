@@ -37,3 +37,30 @@ eureka.client.server-url.defaultZone=http://localhost:8888/eureka/
 @EnableEurekaServer     
 //eureka server 会暴露一些端点供client调用，用于注册、获取注册表、维护心跳等
 ```
+
+### client服务注册
+
+1.pom依赖
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+
+2.application.yml
+```yml
+eureka:
+    client:
+        service-url:
+            defaultZone: http://root:root@localhost:8888/eureka/
+
+spring:
+    cloud:
+        service-registry:
+            auto-registration:
+                enabled: true/false
+# 如果不想注册，则设置成false
+# 如果注册成功，则日志有
+# DiscoveryClient_API-LISTEN-ORDER/appName:ip:port - regisration status : 204
+```

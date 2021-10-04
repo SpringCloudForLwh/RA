@@ -1,0 +1,21 @@
+server:
+  port: 9000
+
+
+spring:
+  cloud:
+    service-registry:
+      auto-registration:
+        enabled: true
+  application:
+    name: CLIENT_1
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://lwh2.com:8888/eureka/
+  instance:
+    non-secure-port-enabled: true
+    metadata-map:
+      one: this is one
