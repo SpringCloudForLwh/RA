@@ -14,8 +14,14 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://lwh2.com:8888/eureka/
+#      defaultZone: http://lwh2.com:8888/eureka/
+      defaultZone: http://localhost:8888/eureka/
   instance:
     non-secure-port-enabled: true
     metadata-map:
       one: this is one
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
