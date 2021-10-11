@@ -45,3 +45,16 @@ eureka.server.enable-self-preservation=true/false
 #服务失效间隔 ms
 eureka.server.eviction-interval-timer-in-ms=3000
 ```
+
+
+# 元数据
+eureka元数据有2种
+- 标准元数据 
+    - 主机名，端口，状态，健康检查等信息
+- 客户自定义元数据
+    - 通过eureka.instance.matedata-map.{key}={value}
+## <br>
+一般情况自定义元数据并不会有什么影响，除非开发在编码时明确元数据含义，做出不同的动作。
+
+    
+ 
