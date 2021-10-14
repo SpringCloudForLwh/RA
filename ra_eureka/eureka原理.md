@@ -46,6 +46,22 @@ eureka.server.enable-self-preservation=true/false
 eureka.server.eviction-interval-timer-in-ms=3000
 ```
 
+### 自我保护机制
+客户端每分钟续约数量小于客户端总数的85%时，触发保护机制
+
+每分钟心跳次数（renewsLastMin） 小于 numberOfRenewsPerMinThreshold时,并且开启保护模式，不再自动过期客户端实例。
+```
+expectedNumberOfRenewsPerMin = 当前应用数 x 2 ;
+renewalPercentThreshold = @Value{eureka.server.renewalPercentThreshold:0.85}
+numberOfRenewsPerMinThreshold =expectedNumberOfRenewsPerMin x renewalPercentThreshold  
+```
+为什么要实例数乘以2，因为默认30s心跳一次，一个实例一分钟会提交2次心跳
+相关代码：
+```java
+AbstractInstanceRegistry
+PeerAwareInstanceRegistryImpl
+```
+
 
 # 元数据
 eureka元数据有2种
@@ -55,6 +71,27 @@ eureka元数据有2种
     - 通过eureka.instance.matedata-map.{key}={value}
 ## <br>
 一般情况自定义元数据并不会有什么影响，除非开发在编码时明确元数据含义，做出不同的动作。
+
+## 网络配置
+1.ip配置
+```
+eureka:
+    instance:
+        perfer-ip-address: true/false
+true表示将ip注册到eureka，false表示将hostname注册到eureka
+```
+2.eureka多网卡选择，如果配置指定网卡eth0，则client只能通过eth0来注册服务
+
+3.指定ip
+```
+eureka: 
+    instance:
+        perfer-ip-address: true
+        ip-address: 实际ip
+    如果设置了ip，则元数据中能够看到该ip，其他应用也是通过ip来调用本服务
+```
+
+
 
     
  
