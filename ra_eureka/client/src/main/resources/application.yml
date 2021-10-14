@@ -13,6 +13,8 @@ spring:
 
 eureka:
   client:
+    healthcheck:
+      enabled: true
     service-url:
 #      defaultZone: http://lwh2.com:8888/eureka/
       defaultZone: http://localhost:8888/eureka/
@@ -20,6 +22,7 @@ eureka:
     non-secure-port-enabled: true
     metadata-map:
       one: this is one
+    lease-renewal-interval-in-seconds: 300
 management:
   endpoints:
     web:

@@ -91,6 +91,38 @@ eureka:
     如果设置了ip，则元数据中能够看到该ip，其他应用也是通过ip来调用本服务
 ```
 
+## 安全配置
+开启eureka安全连接 server
+```
+spring.security.user.name=admin
+spring.security.user.password=123
+```
+如果服务注册失败
+root name 'timestamp' xxxxxx
+
+是默认开启了防止跨域攻击，可以手动关闭
+
+```java
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{ 
+
+    protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
+        super.configure(http);
+        
+   }
+
+}
+
+
+
+
+
+
+
+
+```
 
 
     
